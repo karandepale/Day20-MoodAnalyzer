@@ -41,10 +41,17 @@ namespace MoodAnalyzer
     {
         public static MoodAnalyzerClass CreateMoodAnalyzer()
         {
-            Type moodAnalyzerType = typeof(MoodAnalyzerClass);
-            ConstructorInfo constructor = moodAnalyzerType.GetConstructor(Type.EmptyTypes);
-            MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(null);
-            return moodAnalyzer;
+            try
+            {
+                Type moodAnalyzerType = typeof(MoodAnalyzerClass);
+                ConstructorInfo constructor = moodAnalyzerType.GetConstructor(Type.EmptyTypes);
+                MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(null);
+                return moodAnalyzer;
+            }
+            catch (TargetInvocationException ex)
+            {
+                throw new MoodAnalysisException("No Such Class Error");
+            }
         }
     }
 
