@@ -46,7 +46,7 @@ namespace MoodAnalyzer
         {
             if (string.IsNullOrEmpty(mood))
             {
-                throw new MoodAnalysisException("MoodAnalysisException");
+                throw new MoodAnalysisException("Empty Mood");
             }
             else if (mood.Contains("null"))
             {
@@ -61,5 +61,6 @@ namespace MoodAnalyzer
                 return Mood.Invalid.ToString();
             }
         }
+
     }
 }
