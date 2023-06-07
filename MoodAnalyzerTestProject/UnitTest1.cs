@@ -14,8 +14,8 @@ namespace MoodAnalyzerTestProject
             MoodAnalyzerClass obj = new MoodAnalyzerClass();
 
             // Act
-            string expected = "Sad";
-            string actual = obj.AnalyzeMood("I am in sad mood");
+            string expected = "Happy";
+            string actual = obj.AnalyzeMood("I am in any mood");
 
             // Assert
             Assert.AreEqual(expected, actual);

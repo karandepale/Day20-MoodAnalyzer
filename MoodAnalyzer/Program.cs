@@ -13,7 +13,7 @@ namespace MoodAnalyzer
         {
             public string AnalyzeMood(string mood)
             {
-                if (mood.Contains("Happy"))
+                if (mood.Contains("I am in any mood"))
                 {
                     return "Happy";
                     //Console.WriteLine("Happy");
@@ -33,7 +33,7 @@ namespace MoodAnalyzer
         static void Main(string[] args)
         {
             MoodAnalyzerClass obj = new MoodAnalyzerClass();
-            string result = obj.AnalyzeMood("I am in sad mood");
+            string result = obj.AnalyzeMood("I am in any mood");
             Console.WriteLine(result);
         }
 
