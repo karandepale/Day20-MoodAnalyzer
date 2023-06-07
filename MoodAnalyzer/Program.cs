@@ -45,12 +45,18 @@ namespace MoodAnalyzer
             {
                 Type moodAnalyzerType = typeof(MoodAnalyzerClass);
                 ConstructorInfo constructor = moodAnalyzerType.GetConstructor(Type.EmptyTypes);
+
+                if (constructor == null)
+                {
+                    throw new MoodAnalysisException("No Such Method Error");
+                }
+
                 MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(null);
                 return moodAnalyzer;
             }
-            catch (TargetInvocationException ex)
+            catch (TargetException ex)
             {
-                throw new MoodAnalysisException("No Such Class Error");
+                throw new MoodAnalysisException("No Such Method Error");
             }
         }
     }
