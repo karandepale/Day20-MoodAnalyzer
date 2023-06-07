@@ -10,17 +10,17 @@ namespace MoodAnalyzerTestProject
         [TestMethod]
         public void TestMethod1()
         {
-            // Arrange
+            //Arrange
             MoodAnalyzerClass obj = new MoodAnalyzerClass();
 
             // Act
-            string expected = "Happy";
-            string actual = obj.AnalyzeMood("Happy");
+            string expected = "Sad";
+            string actual = obj.AnalyzeMood("I am in sad mood");
 
             // Assert
             Assert.AreEqual(expected, actual);
 
-            
+
         }
     }
 }

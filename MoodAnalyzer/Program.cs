@@ -13,25 +13,29 @@ namespace MoodAnalyzer
         {
             public string AnalyzeMood(string mood)
             {
-                if(mood == "Happy")
+                if (mood.Contains("Happy"))
                 {
                     return "Happy";
                     //Console.WriteLine("Happy");
-                }else if(mood == "Sad")
+                }
+                else if (mood.Contains("I am in sad mood"))
                 {
                     return "Sad";
-                   // Console.WriteLine("Sad");
+                   //  Console.WriteLine("Sad");
                 }
                 else
                 {
-                    return "-1";
+                    return "Invalid ";
                 }
             }
         }
 
         static void Main(string[] args)
         {
-            
+            MoodAnalyzerClass obj = new MoodAnalyzerClass();
+            string result = obj.AnalyzeMood("I am in sad mood");
+            Console.WriteLine(result);
         }
+
     }
 }
