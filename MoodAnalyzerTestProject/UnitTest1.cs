@@ -12,7 +12,7 @@ namespace MoodAnalyzerTestProject
         public void TestMethod1()
         {
             // Arrange
-            MoodAnalyzerClass obj = new MoodAnalyzerClass("I am in any mood");
+            MoodAnalyzerClass obj = new MoodAnalyzerClass("null");
 
             // Act
             string expected = "Happy";

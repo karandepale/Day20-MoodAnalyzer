@@ -32,7 +32,7 @@ namespace MoodAnalyzer
         public string AnalyzeMood()
         {
 
-            if (mood.Contains("I am in any mood"))
+            if (mood.Contains("null"))
             {
                 return "Happy";
             }
