@@ -2,22 +2,35 @@
 
 namespace MoodAnalyzer
 {
+    public class MoodAnalysisException : Exception
+    {
+        public MoodAnalysisException(string message) : base(message)
+        {
+        }
+    }
+
+    public enum Mood
+    {
+        Happy,
+        Sad,
+        Invalid
+    }
+
     public class Program
     {
         static void Main(string[] args)
         {
             try
             {
-                MoodAnalyzerClass obj = new MoodAnalyzerClass("null");
+                MoodAnalyzerClass obj = new MoodAnalyzerClass(null);
                 string result = obj.AnalyzeMood();
                 Console.WriteLine(result);
             }
-            catch (ArgumentNullException ex)
+            catch (MoodAnalysisException ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
-
     }
 
     public class MoodAnalyzerClass
@@ -31,18 +44,21 @@ namespace MoodAnalyzer
 
         public string AnalyzeMood()
         {
-
-            if (mood.Contains("null"))
+            if (string.IsNullOrEmpty(mood))
             {
-                return "Happy";
+                throw new MoodAnalysisException("Mood cannot be null or empty.");
+            }
+            else if (mood.Contains("null"))
+            {
+                return Mood.Happy.ToString();
             }
             else if (mood.Contains("I am in sad mood"))
             {
-                return "Sad";
+                return Mood.Sad.ToString();
             }
             else
             {
-                return "Invalid";
+                return Mood.Invalid.ToString();
             }
         }
     }
