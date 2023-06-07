@@ -6,10 +6,18 @@ namespace MoodAnalyzer
     {
         static void Main(string[] args)
         {
-            MoodAnalyzerClass obj = new MoodAnalyzerClass("I am in any mood");
-            string result = obj.AnalyzeMood();
-            Console.WriteLine(result);
+            try
+            {
+                MoodAnalyzerClass obj = new MoodAnalyzerClass("null");
+                string result = obj.AnalyzeMood();
+                Console.WriteLine(result);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
         }
+
     }
 
     public class MoodAnalyzerClass
@@ -23,6 +31,7 @@ namespace MoodAnalyzer
 
         public string AnalyzeMood()
         {
+
             if (mood.Contains("I am in any mood"))
             {
                 return "Happy";
