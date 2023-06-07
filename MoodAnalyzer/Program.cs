@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace MoodAnalyzer
 {
@@ -22,7 +23,7 @@ namespace MoodAnalyzer
         {
             try
             {
-                MoodAnalyzerClass obj = new MoodAnalyzerClass(null);
+                MoodAnalyzerClass obj = MoodAnalyzerFactory.CreateMoodAnalyzer();
                 string result = obj.AnalyzeMood();
                 Console.WriteLine(result);
             }
@@ -33,13 +34,24 @@ namespace MoodAnalyzer
         }
     }
 
+    public class MoodAnalyzerFactory
+    {
+        public static MoodAnalyzerClass CreateMoodAnalyzer()
+        {
+            Type moodAnalyzerType = typeof(MoodAnalyzerClass);
+            ConstructorInfo constructor = moodAnalyzerType.GetConstructor(Type.EmptyTypes);
+            MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(null);
+            return moodAnalyzer;
+        }
+    }
+
     public class MoodAnalyzerClass
     {
         private string mood;
 
-        public MoodAnalyzerClass(string mood)
+        public MoodAnalyzerClass()
         {
-            this.mood = mood;
+            this.mood = "Default Mood";
         }
 
         public string AnalyzeMood()
@@ -61,6 +73,5 @@ namespace MoodAnalyzer
                 return Mood.Invalid.ToString();
             }
         }
-
     }
 }
