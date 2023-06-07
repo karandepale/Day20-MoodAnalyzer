@@ -46,7 +46,7 @@ namespace MoodAnalyzer
         {
             if (string.IsNullOrEmpty(mood))
             {
-                throw new MoodAnalysisException("Mood cannot be null or empty.");
+                throw new MoodAnalysisException("MoodAnalysisException");
             }
             else if (mood.Contains("null"))
             {
