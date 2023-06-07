@@ -23,9 +23,12 @@ namespace MoodAnalyzer
         {
             try
             {
-                MoodAnalyzerClass obj = MoodAnalyzerFactory.CreateMoodAnalyzer();
-                string result = obj.AnalyzeMood();
-                Console.WriteLine(result);
+                MoodAnalyzerClass obj1 = MoodAnalyzerFactory.CreateMoodAnalyzer();
+                MoodAnalyzerClass obj2 = MoodAnalyzerFactory.CreateMoodAnalyzer();
+
+                Console.WriteLine("Object 1: " + obj1);
+                Console.WriteLine("Object 2: " + obj2);
+                Console.WriteLine("Objects are equal: " + obj1.Equals(obj2));
             }
             catch (MoodAnalysisException ex)
             {
@@ -72,6 +75,27 @@ namespace MoodAnalyzer
             {
                 return Mood.Invalid.ToString();
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            MoodAnalyzerClass other = (MoodAnalyzerClass)obj;
+            return mood == other.mood;
+        }
+
+        public override int GetHashCode()
+        {
+            return mood.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return mood;
         }
     }
 }
