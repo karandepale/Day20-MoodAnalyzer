@@ -6,7 +6,7 @@ namespace MoodAnalyzer
     {
         static void Main(string[] args)
         {
-            MoodAnalyzerClass obj = new MoodAnalyzerClass("I am in sad mood");
+            MoodAnalyzerClass obj = new MoodAnalyzerClass("I am in any mood");
             string result = obj.AnalyzeMood();
             Console.WriteLine(result);
         }
