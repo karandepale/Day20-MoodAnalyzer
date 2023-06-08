@@ -52,13 +52,15 @@ namespace MoodAnalyzer
                 }
 
                 ConstructorInfo constructor = moodAnalyzerType.GetConstructor(new[] { typeof(string) });
-
                 if (constructor == null)
                 {
                     throw new MoodAnalysisException("No Such Constructor Error");
                 }
 
-                MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(new object[] { message });
+                // Pass an incorrect parameter to the constructor
+                object[] constructorArgs = new object[] { "Incorrect Parameter" };
+
+                MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(constructorArgs);
                 return moodAnalyzer;
             }
             catch (TargetException ex)
