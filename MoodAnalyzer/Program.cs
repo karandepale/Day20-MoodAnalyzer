@@ -31,16 +31,29 @@ namespace MoodAnalyzer
                 Console.WriteLine("Objects are equal: " + obj1.Equals(obj2));
 
                 // Use reflection to modify mood dynamically
-                string newMood = "I am in a sad mood";
+                string newMood = "HAPPY";
                 MoodAnalyzerFactory.ChangeMood(obj1, newMood);
                 Console.WriteLine("Modified Mood: " + obj1);
                 Console.WriteLine("Modified Mood: " + obj1.AnalyzeMood());
+
+                // Assert the mood is HAPPY
+                string expectedMood = Mood.Happy.ToString();
+                string actualMood = obj1.AnalyzeMood();
+                if (expectedMood.Equals(actualMood))
+                {
+                    Console.WriteLine("Test Passed: Mood is HAPPY");
+                }
+                else
+                {
+                    Console.WriteLine("Test Failed: Mood is not HAPPY");
+                }
             }
             catch (MoodAnalysisException ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
+
     }
 
     public class MoodAnalyzerFactory
