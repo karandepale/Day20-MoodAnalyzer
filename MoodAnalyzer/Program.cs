@@ -24,7 +24,7 @@ namespace MoodAnalyzer
             try
             {
                 MoodAnalyzerClass obj1 = MoodAnalyzerFactory.CreateMoodAnalyzer("I am in a happy mood");
-                MoodAnalyzerClass obj2 = MoodAnalyzerFactory.CreateMoodAnalyzer("I am in a sad mood");
+                MoodAnalyzerClass obj2 = MoodAnalyzerFactory.CreateMoodAnalyzer("I am in a happy mood");
 
                 Console.WriteLine("Object 1: " + obj1);
                 Console.WriteLine("Object 2: " + obj2);
