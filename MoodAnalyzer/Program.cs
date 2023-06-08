@@ -41,6 +41,11 @@ namespace MoodAnalyzer
                 Console.WriteLine("Modified Mood: " + obj1);
                 Console.WriteLine("Modified Mood: " + obj1.AnalyzeMood());
 
+                // Set the field value to null using reflection
+                MoodAnalyzerFactory.SetMoodToNull(obj1);
+                Console.WriteLine("Modified Mood: " + obj1);
+                Console.WriteLine("Modified Mood: " + obj1.AnalyzeMood());
+
                 // Assert the mood is HAPPY
                 string expectedMood = Mood.Happy.ToString();
                 string actualMood = obj1.AnalyzeMood();
@@ -58,6 +63,7 @@ namespace MoodAnalyzer
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
+
 
     }
 
@@ -91,6 +97,31 @@ namespace MoodAnalyzer
                 throw new MoodAnalysisException("No Such Constructor Error");
             }
         }
+        public static void SetMoodToNull(MoodAnalyzerClass moodAnalyzer)
+        {
+            try
+            {
+                Type moodAnalyzerType = moodAnalyzer.GetType();
+                FieldInfo field = moodAnalyzerType.GetField("mood", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (field != null)
+                {
+                    field.SetValue(moodAnalyzer, null);
+                }
+                else
+                {
+                    throw new MoodAnalysisException("No Such Field Error");
+                }
+            }
+            catch (MoodAnalysisException)
+            {
+                throw; // Re-throw MoodAnalysisException
+            }
+            catch (Exception ex)
+            {
+                throw new MoodAnalysisException("No Such Field Error: " + ex.Message, ex);
+            }
+        }
+
 
         public static void ChangeMood(MoodAnalyzerClass moodAnalyzer, string newMood)
         {
