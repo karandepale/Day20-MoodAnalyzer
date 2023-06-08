@@ -8,7 +8,12 @@ namespace MoodAnalyzer
         public MoodAnalysisException(string message) : base(message)
         {
         }
+
+        public MoodAnalysisException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
+
 
     public enum Mood
     {
@@ -102,11 +107,17 @@ namespace MoodAnalyzer
                     throw new MoodAnalysisException("No Such Field Error");
                 }
             }
-            catch (TargetException ex)
+            catch (MoodAnalysisException)
             {
-                throw new MoodAnalysisException("No Such Field Error");
+                throw; // Re-throw MoodAnalysisException
+            }
+            catch (Exception ex)
+            {
+                throw new MoodAnalysisException("No Such Field Error: " + ex.Message, ex);
             }
         }
+
+
     }
 
     public class MoodAnalyzerClass
