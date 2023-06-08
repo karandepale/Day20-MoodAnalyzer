@@ -29,6 +29,12 @@ namespace MoodAnalyzer
                 Console.WriteLine("Object 1: " + obj1);
                 Console.WriteLine("Object 2: " + obj2);
                 Console.WriteLine("Objects are equal: " + obj1.Equals(obj2));
+
+                // Use reflection to modify mood dynamically
+                string newMood = "I am in a sad mood";
+                MoodAnalyzerFactory.ChangeMood(obj1, newMood);
+                Console.WriteLine("Modified Mood: " + obj1);
+                Console.WriteLine("Modified Mood: " + obj1.AnalyzeMood());
             }
             catch (MoodAnalysisException ex)
             {
@@ -57,8 +63,7 @@ namespace MoodAnalyzer
                     throw new MoodAnalysisException("No Such Constructor Error");
                 }
 
-                // Pass an incorrect parameter to the constructor
-                object[] constructorArgs = new object[] { "Incorrect Parameter" };
+                object[] constructorArgs = new object[] { message };
 
                 MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(constructorArgs);
                 return moodAnalyzer;
@@ -66,6 +71,27 @@ namespace MoodAnalyzer
             catch (TargetException ex)
             {
                 throw new MoodAnalysisException("No Such Constructor Error");
+            }
+        }
+
+        public static void ChangeMood(MoodAnalyzerClass moodAnalyzer, string newMood)
+        {
+            try
+            {
+                Type moodAnalyzerType = moodAnalyzer.GetType();
+                FieldInfo field = moodAnalyzerType.GetField("mood", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (field != null)
+                {
+                    field.SetValue(moodAnalyzer, newMood);
+                }
+                else
+                {
+                    throw new MoodAnalysisException("No Such Field Error");
+                }
+            }
+            catch (TargetException ex)
+            {
+                throw new MoodAnalysisException("No Such Field Error");
             }
         }
     }
