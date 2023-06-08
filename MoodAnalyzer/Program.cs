@@ -23,8 +23,8 @@ namespace MoodAnalyzer
         {
             try
             {
-                MoodAnalyzerClass obj1 = MoodAnalyzerFactory.CreateMoodAnalyzer();
-                MoodAnalyzerClass obj2 = MoodAnalyzerFactory.CreateMoodAnalyzer();
+                MoodAnalyzerClass obj1 = MoodAnalyzerFactory.CreateMoodAnalyzer("I am in a happy mood");
+                MoodAnalyzerClass obj2 = MoodAnalyzerFactory.CreateMoodAnalyzer("I am in a sad mood");
 
                 Console.WriteLine("Object 1: " + obj1);
                 Console.WriteLine("Object 2: " + obj2);
@@ -39,24 +39,24 @@ namespace MoodAnalyzer
 
     public class MoodAnalyzerFactory
     {
-        public static MoodAnalyzerClass CreateMoodAnalyzer()
+        public static MoodAnalyzerClass CreateMoodAnalyzer(string message)
         {
             try
             {
                 Type moodAnalyzerType = typeof(MoodAnalyzerClass);
-                ConstructorInfo constructor = moodAnalyzerType.GetConstructor(Type.EmptyTypes);
+                ConstructorInfo constructor = moodAnalyzerType.GetConstructor(new[] { typeof(string) });
 
                 if (constructor == null)
                 {
-                    throw new MoodAnalysisException("No Such Method Error");
+                    throw new MoodAnalysisException("No Such Constructor Error");
                 }
 
-                MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(null);
+                MoodAnalyzerClass moodAnalyzer = (MoodAnalyzerClass)constructor.Invoke(new object[] { message });
                 return moodAnalyzer;
             }
             catch (TargetException ex)
             {
-                throw new MoodAnalysisException("No Such Method Error");
+                throw new MoodAnalysisException("No Such Constructor Error");
             }
         }
     }
@@ -65,9 +65,9 @@ namespace MoodAnalyzer
     {
         private string mood;
 
-        public MoodAnalyzerClass()
+        public MoodAnalyzerClass(string mood)
         {
-            this.mood = "Default Mood";
+            this.mood = mood;
         }
 
         public string AnalyzeMood()
