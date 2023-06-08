@@ -43,7 +43,14 @@ namespace MoodAnalyzer
         {
             try
             {
-                Type moodAnalyzerType = typeof(MoodAnalyzerClass);
+                string className = "MoodAnalyzerClass"; // Provide the class name here
+
+                Type moodAnalyzerType = Type.GetType(className);
+                if (moodAnalyzerType == null)
+                {
+                    throw new MoodAnalysisException("No Such Class Error");
+                }
+
                 ConstructorInfo constructor = moodAnalyzerType.GetConstructor(new[] { typeof(string) });
 
                 if (constructor == null)
